@@ -7,6 +7,7 @@
 # Packages ----
 
 library(rstatix)
+library(ggpubr)
 
 # Central tendency ----
 
@@ -32,3 +33,15 @@ sd(x)     # standard deviation (sqrt of variance)
 # All at once: get_summary_stats() ----
 
 iris |> get_summary_stats(Sepal.Length, type = "common")
+
+iris |> 
+  group_by(Species) |> 
+  get_summary_stats(Sepal.Length, type = "mean_sd")
+
+# Visualise the summary ----
+
+ggboxplot(iris, x = "Species", y = "Sepal.Length",
+          add = c("mean", "jitter"), color = "Species",
+          palette = "jco",
+          ylab = "Sepal Length",
+          xlab = "Species")
