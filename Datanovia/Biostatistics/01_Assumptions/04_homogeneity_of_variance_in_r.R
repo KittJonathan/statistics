@@ -23,3 +23,17 @@ bartlett.test(weight ~ group, data = PlantGrowth)
 # Collapse two grouping factors using interaction():
 ToothGrowth$dose <- as.factor(ToothGrowth$dose)
 bartlett.test(len ~ interaction(supp, dose), data = ToothGrowth)
+
+## Levene's test ----
+
+# one grouping factor
+PlantGrowth |> levene_test(weight ~ group)
+
+# two grouping factors and their interaction
+ToothGrowth |> levene_test(len ~ supp * dose)
+
+## Fligner-Killeen’s test ----
+
+fligner.test(weight ~ group, data = PlantGrowth)
+
+PlantGrowth |> fligner_test(weight ~ group)
